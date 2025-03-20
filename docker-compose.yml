@@ -1,9 +1,10 @@
-version: '2.23.0'  # Версия Compose
+version: '3.8.42'  # Указываем текущую версию Compose
 
 services:
-  my_app: test1:v1.1 # Имя сервиса
-    build: .  # Указываем, что образ нужно собрать из Dockerfile в текущей директории
-    container_name: my_python_container_test  # Имя контейнера
+  my_app:  # Дадим имя сервису
+    build: .  # Сборка из Dockerfile ,будет произведена в текущей директории
+    image: test1:v1.1  # Имя и тег образа (опционально)
+    container_name: test_docker # Имя контейнера
     volumes:
-      - .:/app  # Монтируем текущую директорию в /app внутри контейнера
-    command: python3 kvadratnoe_uravnenie.py  # Команда для запуска (если не указана в Dockerfile)
+      - .:/app  # Монтируем текущую директорию в ./app внутри контейнера
+    command: python3 kvadratnoe_uravnenie.py  # Команда для запуска
