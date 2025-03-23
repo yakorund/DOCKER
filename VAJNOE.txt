@@ -1,0 +1,61 @@
+посмотреть имена контейнеров
+docker images
+________________________________________________________________
+запустить контейнер
+docker-compose run test_docker имя взято из файла docker-compose
+(строка  ---  container_name: test_docker # Имя контейнера  ----
+docker-compose up
+_____________________________________________________________________
+Список активных контейнеров (также команда покажет ID контейнера)
+docker ps / всех контейнеров даже неактивных docker ps -a \
+
+завершить контейнеры
+Сделайте docker-compose down перед запуском
+docker stop <имя или ID контейнера>
+docker system prune  --- удалит остановленные контейнеры
+(docker ps -a  --- покажет пустой результат) 
+
+custom_ros_image:configured - одно из имён созданных контейнеров
+
+Запустить контейнер в интерактивном режиме:
+docker run -it <имя> /bin/bash
+
+например docker run -it custom_ros_image:configured /bin/bash
+docker run -it korund_ros_image:configured /bin/bash
+
+удалить контейнер
+docker rmi osrf/ros:humble-desktop  ( - osrf/ros:humble-desktop - это имя контейнера) иногда нужно использовать опцию --force)
+docker rmi --force osrf/ros:humble-desktop
+
+узнать ID контейнера
+docker images
+
+Войти в запущенный контейнер:
+docker exec -it <id_контейнера> /bin/bash
+_____________________________________________________
+
+Как достать образ с hub.docker.com  мой логин korund24 pass: 7a8ldt18c  или с githab
+
+скачать с сервера
+
+docker pull korund24/korund_ros_image
+или
+docker pull korund24/korund_ros_image:configured
+
+загрузить на сервер с изменениями
+docker push korund24/korund_ros_image:configured
+
+пробрость папку с файлами
+docker run --volume /home/korund/docker/:/usr/src python:latest find /usr/src
+или
+docker run -w /usr/src -v "$PWD/docker/":/usr/src python:latest find
+
+запустить файл
+docker run -it -w /usr/src -v "$PWD/docker/":/usr/src python:latest python3 ./kvadratnoe_uravnenie.py
+создаём контейнер с именем и после выполнения он автоматически удаляется
+docker run --rm --name alexey -it -w /usr/src -v "$PWD/docker/":/usr/src python:latest python3 ./kvadratnoe_uravnenie.py
+ключ --rm и имя ставить ТОЛЬКО если всё работает как надо!!!
+__________________________________________________________________________
+
+запуск  docker
+docker run -it test1:v1.1
